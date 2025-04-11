@@ -9,6 +9,8 @@ interface PaginatedContentProps {
 
 /**
  * A generic component that handles pagination logic and renders paginated content.
+ * It takes a list of items and a render function to render the paginated items.
+ * Thusly, we encapsulate all pagination logic in one place, and we can let whoever uses the component specify how to render the resulting items.
  *
  * @param items - The full list of items to paginate
  * @param renderItems - Render props function that renders the paginated items
@@ -28,6 +30,7 @@ export default function PaginatedContent({
   } = usePageNavigation({ totalResults: items.length });
 
   const paginatedItems = items.slice(firstDisplayedItem, lastDisplayedItem);
+
   return (
     <>
       {renderItems(paginatedItems)}
