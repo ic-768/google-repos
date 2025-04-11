@@ -1,5 +1,5 @@
+import { usePageNavigation } from "../../../hooks/usePageNavigation";
 import PaginationControls from "./PaginationControls";
-import { usePageNavigation } from "../../hooks/usePageNavigation";
 import { ReactNode } from "react";
 
 interface PaginatedContentProps {

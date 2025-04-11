@@ -4,20 +4,24 @@ import {
   FormControl,
   Select,
   MenuItem,
-  PaginationProps,
-  BaseSelectProps,
 } from "@mui/material";
+import { usePageNavigation } from "../../../hooks/usePageNavigation";
 
-interface PaginationControlsProps {
-  page: number;
-  handlePageChange: PaginationProps["onChange"];
-  handlePageSizeChange: BaseSelectProps<number>["onChange"];
-  totalPageNum: number;
-  pageSize: number;
-  firstDisplayedItem: number;
-  lastDisplayedItem: number;
+interface PaginationControlsProps extends ReturnType<typeof usePageNavigation> {
   totalNumItems: number;
 }
+
+/**
+ * Displays pagination controls and page size selection.
+ * @param page - The current page number.
+ * @param handlePageChange - Function to handle page changes.
+ * @param handlePageSizeChange - Function to handle page size changes.
+ * @param totalPageNum - The total number of pages.
+ * @param pageSize - The number of items per page.
+ * @param firstDisplayedItem - The index of the first displayed item.
+ * @param lastDisplayedItem - The index of the last displayed item.
+ * @param totalNumItems - The total number of items.
+ */
 export default function PaginationControls({
   page,
   handlePageChange,

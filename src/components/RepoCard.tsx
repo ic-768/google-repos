@@ -7,15 +7,17 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Repo } from "../types/repo";
 import { Chip, ChipProps } from "@mui/material";
 import { Star } from "@mui/icons-material";
-import ExpandMore from "./ui/ExpandMore";
+import ExpandMoreButton from "./ui/ExpandMoreButton";
 
-export default function RepoCard({
-  repo,
-  color,
-}: {
+interface RepoCardProps {
   repo: Repo;
   color?: ChipProps["color"];
-}) {
+}
+
+/**
+ * Expandable Repo Card
+ */
+export default function RepoCard({ repo, color }: RepoCardProps) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -35,14 +37,14 @@ export default function RepoCard({
           size="small"
         />
       </CardContent>
-      <ExpandMore
+      <ExpandMoreButton
         expand={expanded}
         onClick={handleExpandClick}
         aria-expanded={expanded}
         aria-label="show more"
       >
         <ExpandMoreIcon />
-      </ExpandMore>
+      </ExpandMoreButton>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         alfjasdlkfjad alsdjas kljf lk
       </Collapse>

@@ -52,7 +52,6 @@ export const usePageNavigation = ({
     handlePageChange,
     handlePageSizeChange,
     pageSize,
-    totalResults,
     firstDisplayedItem,
     lastDisplayedItem,
     totalPageNum,

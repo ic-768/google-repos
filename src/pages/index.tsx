@@ -4,8 +4,8 @@ import useFetchRepos from "../hooks/useFetchRepos";
 import { categorizeRepos } from "../lib/functions";
 import RepoList from "../components/RepoList";
 import PopularRepoList from "../components/RepoList/PopularRepoList";
-import PaginatedContent from "../components/ui/PaginatedContent";
 import { Repo } from "../types/repo";
+import PaginatedContent from "../components/ui/pagination/PaginatedContent";
 
 export default function IndexPage() {
   const { data: repositories = [], isFetching, error } = useFetchRepos();
