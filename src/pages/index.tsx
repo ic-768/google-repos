@@ -3,9 +3,9 @@ import { Typography, CircularProgress } from "@mui/material";
 import useFetchRepos from "../hooks/useFetchRepos";
 import { usePageNavigation } from "../hooks/usePageNavigation";
 import { categorizeRepos } from "../lib/functions";
-import PaginationControls from "../components/PaginationControls";
 import RepoList from "../components/RepoList";
 import PopularRepoList from "../components/RepoList/PopularRepoList";
+import PaginationControls from "../components/ui/PaginationControls";
 
 export default function IndexPage() {
   const { data: repositories = [], isFetching, error } = useFetchRepos();
@@ -41,7 +41,7 @@ export default function IndexPage() {
       <PopularRepoList repos={popularRepos} />
       <RepoList repos={paginatedUnpopularRepos} />
       <PaginationControls
-        numUnpopularRepos={numUnpopularRepos}
+        totalNumItems={numUnpopularRepos}
         page={page}
         handlePageChange={handlePageChange}
         handlePageSizeChange={handlePageSizeChange}
