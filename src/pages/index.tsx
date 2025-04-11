@@ -15,6 +15,8 @@ import { Star } from "@mui/icons-material";
 
 import useFetchRepos from "../hooks/useFetchRepos";
 import { usePageNavigation } from "../hooks/usePageNavigation";
+import { Repo } from "../types/repo";
+import { categorizeRepos } from "../lib/functions";
 
 export default function IndexPage() {
   const { data: repositories = [], isFetching, error } = useFetchRepos();
@@ -32,15 +34,14 @@ export default function IndexPage() {
     totalResults: repositories.length,
   });
 
-  const currentRepositories = repositories.slice(
+  const { unpopularRepos, popularRepos } = categorizeRepos(repositories);
+
+  const paginatedRepos = unpopularRepos.slice(
     firstDisplayedItem,
     lastDisplayedItem,
   );
-  const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, repositories.length)} of ${repositories.length} repositories`;
 
-  const popularRepositories = repositories.sort(
-    (a, b) => b.stargazers_count - a.stargazers_count,
-  );
+  const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, repositories.length)} of ${repositories.length} repositories`;
 
   return (
     <div className="p-6 flex flex-col gap-8 items-center">
@@ -52,7 +53,7 @@ export default function IndexPage() {
 
       {/* Repository List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
-        {currentRepositories.map((repo) => (
+        {popularRepos.map((repo) => (
           <Card key={repo.id}>
             <CardContent>
               <Typography variant="h6" component="h3">
@@ -61,7 +62,25 @@ export default function IndexPage() {
               <Chip
                 icon={<Star />}
                 label={repo.stargazers_count}
-                color={repo.stargazers_count > 1000 ? "primary" : "default"}
+                color="primary"
+                size="small"
+              />
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+        {paginatedRepos.map((repo) => (
+          <Card key={repo.id}>
+            <CardContent>
+              <Typography variant="h6" component="h3">
+                {repo.name}
+              </Typography>
+              <Chip
+                icon={<Star />}
+                label={repo.stargazers_count}
+                color="default"
                 size="small"
               />
             </CardContent>
