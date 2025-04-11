@@ -1,35 +1,16 @@
 import { Typography, CircularProgress } from "@mui/material";
 
 import useFetchRepos from "../hooks/useFetchRepos";
-import { usePageNavigation } from "../hooks/usePageNavigation";
 import { categorizeRepos } from "../lib/functions";
 import RepoList from "../components/RepoList";
 import PopularRepoList from "../components/RepoList/PopularRepoList";
-import PaginationControls from "../components/ui/PaginationControls";
+import PaginatedContent from "../components/ui/PaginatedContent";
+import { Repo } from "../types/repo";
 
 export default function IndexPage() {
   const { data: repositories = [], isFetching, error } = useFetchRepos();
 
-  const {
-    page,
-    handlePageChange,
-    handlePageSizeChange,
-    totalPageNum,
-    pageSize,
-    firstDisplayedItem,
-    lastDisplayedItem,
-  } = usePageNavigation({
-    totalResults: repositories.length,
-  });
-
   const { unpopularRepos, popularRepos } = categorizeRepos(repositories);
-
-  const paginatedUnpopularRepos = unpopularRepos.slice(
-    firstDisplayedItem,
-    lastDisplayedItem,
-  );
-
-  const numUnpopularRepos = unpopularRepos.length;
 
   return (
     <div className="p-6 flex flex-col gap-8 items-center">
@@ -38,16 +19,12 @@ export default function IndexPage() {
       </Typography>
       {isFetching && <CircularProgress />}
       <PopularRepoList repos={popularRepos} />
-      <RepoList repos={paginatedUnpopularRepos} />
-      <PaginationControls
-        totalNumItems={numUnpopularRepos}
-        page={page}
-        handlePageChange={handlePageChange}
-        handlePageSizeChange={handlePageSizeChange}
-        totalPageNum={totalPageNum}
-        pageSize={pageSize}
-        firstDisplayedItem={firstDisplayedItem}
-        lastDisplayedItem={lastDisplayedItem}
+
+      <PaginatedContent
+        items={unpopularRepos}
+        renderItems={(paginatedItems: Repo[]) => (
+          <RepoList repos={paginatedItems} />
+        )}
       />
     </div>
   );
