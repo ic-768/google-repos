@@ -1,13 +1,13 @@
-import { Card, CardContent, Chip, Typography } from "@mui/material";
+import { Card, CardContent, Chip, Typography, ChipProps } from "@mui/material";
 import { Star } from "@mui/icons-material";
 import { Repo } from "../../types/repo";
 
 interface RepoListProps {
   repos: Repo[];
-  color: string;
+  color?: ChipProps["color"];
 }
 
-export default function RepoList({ repos, color }: RepoListProps) {
+export default function RepoList({ repos, color = "default" }: RepoListProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
       {repos.map((repo) => (

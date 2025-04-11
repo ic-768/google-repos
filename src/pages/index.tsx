@@ -39,7 +39,7 @@ export default function IndexPage() {
       </Typography>
       {isFetching && <CircularProgress />}
       <PopularRepoList repos={popularRepos} />
-      <RepoList repos={paginatedUnpopularRepos} color="default" />;
+      <RepoList repos={paginatedUnpopularRepos} />
       <PaginationControls
         numUnpopularRepos={numUnpopularRepos}
         page={page}
