@@ -1,6 +1,6 @@
-import { Card, CardContent, Chip, Typography, ChipProps } from "@mui/material";
-import { Star } from "@mui/icons-material";
+import { ChipProps } from "@mui/material";
 import { Repo } from "../../types/repo";
+import RepoCard from "../RepoCard";
 
 interface RepoListProps {
   repos: Repo[];
@@ -9,21 +9,11 @@ interface RepoListProps {
 
 export default function RepoList({ repos, color = "default" }: RepoListProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 auto-rows-fr">
       {repos.map((repo) => (
-        <Card key={repo.id}>
-          <CardContent>
-            <Typography variant="h6" component="h3">
-              {repo.name}
-            </Typography>
-            <Chip
-              icon={<Star />}
-              label={repo.stargazers_count}
-              color={color}
-              size="small"
-            />
-          </CardContent>
-        </Card>
+        <div key={repo.id} className="h-full">
+          <RepoCard repo={repo} color={color} />
+        </div>
       ))}
     </div>
   );
