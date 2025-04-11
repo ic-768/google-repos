@@ -19,7 +19,6 @@ export default function IndexPage() {
     firstDisplayedItem,
     lastDisplayedItem,
   } = usePageNavigation({
-    defaultPageSize: 8,
     totalResults: repositories.length,
   });
 

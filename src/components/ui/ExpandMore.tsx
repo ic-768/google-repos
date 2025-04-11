@@ -4,6 +4,9 @@ interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
+/**
+ * Shamelessly stolen from https://mui.com/material-ui/react-card/
+ */
 const ExpandMore = styled((props: ExpandMoreProps) => {
   return <IconButton {...props} />;
 })(({ theme }) => ({
