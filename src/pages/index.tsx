@@ -8,6 +8,7 @@ import { Repo } from "../types/repo";
 import PaginatedContent from "../components/ui/pagination/PaginatedContent";
 
 export default function IndexPage() {
+  // TODO show an error toast if there is an error
   const { data: repositories = [], isFetching, error } = useFetchRepos();
 
   const { unpopularRepos, popularRepos } = categorizeRepos(repositories);
@@ -17,9 +18,10 @@ export default function IndexPage() {
       <Typography variant="h4" component="h1" gutterBottom align="center">
         GitHub Repositories
       </Typography>
-      {isFetching && <CircularProgress />}
-      <PopularRepoList repos={popularRepos} />
 
+      {isFetching && <CircularProgress />}
+
+      <PopularRepoList repos={popularRepos} />
       <PaginatedContent
         items={unpopularRepos}
         renderItems={(paginatedItems: Repo[]) => (
