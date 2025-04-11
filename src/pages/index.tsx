@@ -1,41 +1,54 @@
-import { useState } from "react";
-import { Typography, Card, CardContent, Pagination, Chip } from "@mui/material";
+import {
+  Typography,
+  Card,
+  CardContent,
+  Pagination,
+  Chip,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 import { Star } from "@mui/icons-material";
 
 import useFetchRepos from "../hooks/useFetchRepos";
-import { UsePaginationProps } from "@mui/material/usePagination";
+import { usePageNavigation } from "../hooks/usePageNavigation";
 
 export default function IndexPage() {
-  const { data: repositories = [], isLoading, error } = useFetchRepos();
+  const { data: repositories = [], isFetching, error } = useFetchRepos();
 
-  const [page, setPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const {
+    page,
+    handlePageChange,
+    handlePageSizeChange,
+    totalPageNum,
+    pageSize,
+    firstDisplayedItem,
+    lastDisplayedItem,
+  } = usePageNavigation({
+    defaultPageSize: 8,
+    totalResults: repositories.length,
+  });
 
-  const handlePageChange: UsePaginationProps["onChange"] = (_event, value) => {
-    setPage(value);
-  };
-
-  // pagination
-  const indexOfLastRepo = page * itemsPerPage;
-  const indexOfFirstRepo = indexOfLastRepo - itemsPerPage;
   const currentRepositories = repositories.slice(
-    indexOfFirstRepo,
-    indexOfLastRepo,
+    firstDisplayedItem,
+    lastDisplayedItem,
   );
-  const paginationText = `Showing ${indexOfFirstRepo + 1}-${Math.min(indexOfLastRepo, repositories.length)} of ${repositories.length} repositories`;
-
-  const totalPages = Math.ceil(repositories.length / itemsPerPage);
+  const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, repositories.length)} of ${repositories.length} repositories`;
 
   const popularRepositories = repositories.sort(
     (a, b) => b.stargazers_count - a.stargazers_count,
   );
 
   return (
-    <div className="p-6 flex flex-col gap-8">
+    <div className="p-6 flex flex-col gap-8 items-center">
       <Typography variant="h4" component="h1" gutterBottom align="center">
         GitHub Repositories
       </Typography>
+
+      {isFetching && <CircularProgress />}
 
       {/* Repository List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
@@ -58,7 +71,7 @@ export default function IndexPage() {
 
       <div className="flex flex-col items-center gap-4">
         <Pagination
-          count={totalPages}
+          count={totalPageNum}
           page={page}
           onChange={handlePageChange}
           color="primary"
@@ -68,6 +81,20 @@ export default function IndexPage() {
         <Typography color="textSecondary" align="center">
           {paginationText}
         </Typography>
+        <FormControl>
+          <InputLabel id="page-size-label">Items per page</InputLabel>
+          <Select
+            labelId="page-size-label"
+            value={pageSize}
+            onChange={handlePageSizeChange}
+            label="Items per page"
+            variant="outlined"
+            size="small"
+          >
+            <MenuItem value={8}>8</MenuItem>
+            <MenuItem value={16}>16</MenuItem>
+          </Select>
+        </FormControl>
       </div>
     </div>
   );
