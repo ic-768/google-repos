@@ -9,11 +9,9 @@ interface RepoListProps {
 
 export default function RepoList({ repos, color = "default" }: RepoListProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 auto-rows-fr">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4">
       {repos.map((repo) => (
-        <div key={repo.id} className="h-full">
-          <RepoCard repo={repo} color={color} />
-        </div>
+        <RepoCard repo={repo} color={color} />
       ))}
     </div>
   );

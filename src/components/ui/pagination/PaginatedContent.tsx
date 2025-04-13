@@ -34,7 +34,6 @@ export default function PaginatedContent({
   return (
     <>
       {renderItems(paginatedItems)}
-
       {items.length > 0 && (
         <PaginationControls
           totalNumItems={items.length}

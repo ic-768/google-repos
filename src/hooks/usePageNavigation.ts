@@ -7,7 +7,7 @@ interface UsePageNavigationProps {
 }
 
 /**
- * Generic hook to manage pagination of a list of items.
+ * Generic hook to manage pagination of a list of items. To be used in conjunction with the PaginatedContent component.
  *
  * @param defaultPageSize - The default number of items to display per page. Can be changed with handlePageSizeChange.
  * @param totalResults - The total number of items in the list.

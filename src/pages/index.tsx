@@ -13,14 +13,10 @@ export default function IndexPage() {
 
   const { unpopularRepos, popularRepos } = categorizeRepos(repositories);
 
-  return (
-    <div className="p-6 flex flex-col gap-8 items-center">
-      <Typography variant="h4" component="h1" gutterBottom align="center">
-        GitHub Repositories
-      </Typography>
-
-      {isFetching && <CircularProgress />}
-
+  const pageContent = isFetching ? (
+    <CircularProgress />
+  ) : (
+    <>
       <PopularRepoList repos={popularRepos} />
       <PaginatedContent
         items={unpopularRepos}
@@ -28,6 +24,15 @@ export default function IndexPage() {
           <RepoList repos={paginatedItems} />
         )}
       />
+    </>
+  );
+
+  return (
+    <div className="p-6 flex flex-col gap-8 items-center">
+      <Typography variant="h4" component="h1" gutterBottom align="center">
+        GitHub Repositories
+      </Typography>
+      {pageContent}
     </div>
   );
 }
