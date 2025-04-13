@@ -1,6 +1,7 @@
+import { ReactNode } from "react";
+
 import { usePageNavigation } from "../../../hooks/usePageNavigation";
 import PaginationControls from "./PaginationControls";
-import { ReactNode } from "react";
 
 interface PaginatedContentProps<T> {
   items: T[];

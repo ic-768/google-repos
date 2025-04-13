@@ -1,10 +1,11 @@
-import { Typography, CircularProgress } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
+
 import useFetchRepos from "../../hooks/useFetchRepos";
-import PaginatedContent from "../../components/ui/pagination/PaginatedContent";
-import SearchBar from "../../components/ui/SearchBar";
 import { useRepoSearch } from "../../hooks/useRepoSearch";
-import PopularRepoList from "../../components/repositories/RepoList/PopularRepoList";
-import RepoList from "../../components/repositories/RepoList";
+import RepoList from "../repositories/RepoList";
+import PopularRepoList from "../repositories/RepoList/PopularRepoList";
+import PaginatedContent from "../ui/pagination/PaginatedContent";
+import SearchBar from "../ui/SearchBar";
 
 export default function IndexPage() {
   // TODO show an error message
@@ -26,7 +27,7 @@ export default function IndexPage() {
   const hasUnpopularRepos = sortedUnpopularRepos.length > 0;
 
   return (
-    <div className="p-6 flex flex-col gap-8 items-center w-full max-w-7xl">
+    <div className="flex w-full max-w-7xl flex-col items-center gap-8 p-6">
       <Typography variant="h4">GitHub Repositories</Typography>
 
       <SearchBar
@@ -60,7 +61,7 @@ export default function IndexPage() {
 
           {showNoResults && (
             <Typography>
-              No repositories found matching "{searchTerm}"
+              No repositories found matching &quot;{searchTerm}&quot;
             </Typography>
           )}
         </>

@@ -1,10 +1,11 @@
 import {
-  Typography,
-  Pagination,
   FormControl,
-  Select,
   MenuItem,
+  Pagination,
+  Select,
+  Typography,
 } from "@mui/material";
+
 import { usePageNavigation } from "../../../hooks/usePageNavigation";
 
 interface PaginationControlsProps extends ReturnType<typeof usePageNavigation> {
@@ -35,7 +36,7 @@ export default function PaginationControls({
   const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, totalNumItems)} of ${totalNumItems} items`;
 
   return (
-    <div className="flex items-center justify-center flex-col sm:flex-row gap-4 sm:items-start">
+    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-start">
       <div className="flex flex-col items-center gap-4">
         <Pagination
           count={totalPageNum}

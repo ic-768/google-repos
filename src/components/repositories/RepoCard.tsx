@@ -1,10 +1,11 @@
+import { useState } from "react";
+import { Code, Star } from "@mui/icons-material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Chip, ChipProps, Link } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Chip, ChipProps, Link } from "@mui/material";
-import { Code, Star } from "@mui/icons-material";
-import { useState } from "react";
+
 import { Repo } from "../../types/repo";
 import ExpandMoreButton from "../ui/ExpandMoreButton";
 
@@ -27,7 +28,7 @@ export default function RepoCard({ repo, color }: RepoCardProps) {
     <div className="relative h-full">
       <Card className="h-full">
         <CardContent>
-          <div className="flex justify-between items-start gap-2">
+          <div className="flex items-start justify-between gap-2">
             <Typography variant="h6">{repo.name}</Typography>
             <Chip
               icon={<Star />}

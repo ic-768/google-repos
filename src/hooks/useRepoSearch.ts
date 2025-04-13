@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
-import { categorizeRepos, sortRepos } from "../lib/functions";
+
 import { useDebounce } from "../hooks/useDebounce";
+import { categorizeRepos, sortRepos } from "../lib/functions";
 import { Repo } from "../types/repo";
 
 /**

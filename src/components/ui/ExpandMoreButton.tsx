@@ -1,5 +1,5 @@
-import { styled } from "@mui/material/styles";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import { CSSObject } from "@mui/system";
 
 interface ExpandMoreProps extends IconButtonProps {

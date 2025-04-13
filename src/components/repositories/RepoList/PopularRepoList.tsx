@@ -1,6 +1,7 @@
 import { useState } from "react";
-import RepoList from ".";
+
 import { Repo } from "../../../types/repo";
+import RepoList from ".";
 
 const NUM_INITIAL_VISIBLE_REPOS = 5;
 
