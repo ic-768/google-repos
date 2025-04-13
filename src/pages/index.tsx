@@ -7,7 +7,7 @@ import PopularRepoList from "../components/RepoList/PopularRepoList";
 import { Repo } from "../types/repo";
 import PaginatedContent from "../components/ui/pagination/PaginatedContent";
 import { useState } from "react";
-import SortToggle from "../components/ui/SortToggle";
+import ToggleOptions from "../components/ui/ToggleOptions";
 
 export default function IndexPage() {
   // TODO show an error toast if there is an error
@@ -23,7 +23,14 @@ export default function IndexPage() {
     <CircularProgress />
   ) : (
     <>
-      <SortToggle sort={sort} setSort={setSort} />
+      <ToggleOptions
+        value={sort}
+        setValue={setSort}
+        options={[
+          { label: "Sort by Stars", value: "stars" },
+          { label: "Sort A–Z", value: "alphabetic" },
+        ]}
+      />
       <PopularRepoList repos={sortedPopularRepos} />
       <PaginatedContent
         items={sortedUnpopularRepos}
