@@ -50,7 +50,7 @@ export default function RepoCard({ repo, color }: RepoCardProps) {
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
-              sx={{ marginLeft: "auto" }}
+              className="!absolute right-0 bottom-4"
             >
               <ExpandMoreIcon />
             </ExpandMoreButton>
