@@ -32,7 +32,7 @@ export default function PaginationControls({
   lastDisplayedItem,
   totalNumItems,
 }: PaginationControlsProps) {
-  const paginationText = `Showing ${firstDisplayedItem}-${Math.min(lastDisplayedItem, totalNumItems)} of ${totalNumItems} items`;
+  const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, totalNumItems)} of ${totalNumItems} items`;
 
   return (
     <div className="flex">

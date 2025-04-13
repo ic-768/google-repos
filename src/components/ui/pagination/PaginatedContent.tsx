@@ -2,9 +2,9 @@ import { usePageNavigation } from "../../../hooks/usePageNavigation";
 import PaginationControls from "./PaginationControls";
 import { ReactNode } from "react";
 
-interface PaginatedContentProps {
-  items: any[];
-  renderItems: (paginatedItems: any[]) => ReactNode;
+interface PaginatedContentProps<T> {
+  items: T[];
+  renderItems: (paginatedItems: T[]) => ReactNode;
 }
 
 /**
@@ -15,10 +15,10 @@ interface PaginatedContentProps {
  * @param items - The full list of items to paginate
  * @param renderItems - Render props function that renders the paginated items
  */
-export default function PaginatedContent({
+export default function PaginatedContent<T>({
   items,
   renderItems,
-}: PaginatedContentProps) {
+}: PaginatedContentProps<T>) {
   const {
     page,
     handlePageChange,

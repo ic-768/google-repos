@@ -33,7 +33,8 @@ export const usePageNavigation = ({
   // stay within valid page bounds
   const constrainedPage = Math.min(page, Math.max(totalPageNum, 1));
 
-  const firstDisplayedItem = Math.max((constrainedPage - 1) * pageSize + 1, 0);
+  const firstDisplayedItem = Math.max((constrainedPage - 1) * pageSize, 0);
+
   const lastDisplayedItem = Math.min(
     pageSize * constrainedPage,
     totalResults || 0,
