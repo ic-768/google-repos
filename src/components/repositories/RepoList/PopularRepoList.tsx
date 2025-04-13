@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Repo } from "../../types/repo";
 import RepoList from ".";
+import { Repo } from "../../../types/repo";
 
 export default function PopularRepoList({ repos }: { repos: Repo[] }) {
   const [isExpanded, setIsExpanded] = useState(false);

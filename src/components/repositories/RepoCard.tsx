@@ -2,11 +2,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Repo } from "../types/repo";
 import { Chip, ChipProps, Link } from "@mui/material";
 import { Code, Star } from "@mui/icons-material";
-import ExpandMoreButton from "./ui/ExpandMoreButton";
 import { useState } from "react";
+import { Repo } from "../../types/repo";
+import ExpandMoreButton from "../ui/ExpandMoreButton";
 
 interface RepoCardProps {
   repo: Repo;

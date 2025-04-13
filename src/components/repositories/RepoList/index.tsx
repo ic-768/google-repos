@@ -1,6 +1,6 @@
 import { ChipProps } from "@mui/material";
-import { Repo } from "../../types/repo";
 import RepoCard from "../RepoCard";
+import { Repo } from "../../../types/repo";
 
 interface RepoListProps {
   repos: Repo[];

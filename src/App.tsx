@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import IndexPage from "./pages";
 import "../index.css";
+import IndexPage from "./components/pages";
 
 function App() {
   const queryClient = new QueryClient();
