@@ -6,20 +6,24 @@ import RepoList from "../components/RepoList";
 import PopularRepoList from "../components/RepoList/PopularRepoList";
 import { Repo } from "../types/repo";
 import PaginatedContent from "../components/ui/pagination/PaginatedContent";
+import { useState } from "react";
+import SortToggle from "../components/ui/SortToggle";
 
 export default function IndexPage() {
   // TODO show an error toast if there is an error
   const { data: repositories = [], isFetching, error } = useFetchRepos();
+  const [sort, setSort] = useState<"stars" | "alphabetic">("stars");
 
   const { unpopularRepos, popularRepos } = categorizeRepos(repositories);
 
-  const sortedPopularRepos = sortRepos(popularRepos, "stars");
-  const sortedUnpopularRepos = sortRepos(unpopularRepos, "alphabetic");
+  const sortedPopularRepos = sortRepos(popularRepos, sort);
+  const sortedUnpopularRepos = sortRepos(unpopularRepos, sort);
 
   const pageContent = isFetching ? (
     <CircularProgress />
   ) : (
     <>
+      <SortToggle sort={sort} setSort={setSort} />
       <PopularRepoList repos={sortedPopularRepos} />
       <PaginatedContent
         items={sortedUnpopularRepos}

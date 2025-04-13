@@ -14,7 +14,7 @@ export default function PopularRepoList({ repos }: { repos: Repo[] }) {
   const buttonText = isExpanded ? "Show Less" : "Show More";
 
   return (
-    <div>
+    <div className="w-full">
       <RepoList repos={repos.slice(0, numVisibleRepos)} color="primary" />
       <button onClick={handleToggleShowMore} className="mt-4 text-blue-500">
         {buttonText}

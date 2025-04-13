@@ -32,7 +32,7 @@ export default function PaginatedContent({
   const paginatedItems = items.slice(firstDisplayedItem, lastDisplayedItem);
 
   return (
-    <>
+    <div className="flex w-full flex-col gap-4">
       {renderItems(paginatedItems)}
       {items.length > 0 && (
         <PaginationControls
@@ -46,6 +46,6 @@ export default function PaginatedContent({
           lastDisplayedItem={lastDisplayedItem}
         />
       )}
-    </>
+    </div>
   );
 }

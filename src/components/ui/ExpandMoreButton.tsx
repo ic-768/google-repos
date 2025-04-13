@@ -7,8 +7,9 @@ interface ExpandMoreProps extends IconButtonProps {
 /**
  * Shamelessly stolen from https://mui.com/material-ui/react-card/
  */
-const ExpandMoreButton = styled((props: ExpandMoreProps) => {
-  return <IconButton {...props} />;
+const ExpandMore = styled((props: ExpandMoreProps) => {
+  const { expand: _expand, ...other } = props;
+  return <IconButton {...other} />;
 })(({ theme }) => ({
   marginLeft: "auto",
   transition: theme.transitions.create("transform", {
@@ -30,4 +31,4 @@ const ExpandMoreButton = styled((props: ExpandMoreProps) => {
   ],
 }));
 
-export default ExpandMoreButton;
+export default ExpandMore;

@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -7,6 +6,7 @@ import { Repo } from "../types/repo";
 import { Chip, ChipProps, Link } from "@mui/material";
 import { Code, Star } from "@mui/icons-material";
 import ExpandMoreButton from "./ui/ExpandMoreButton";
+import { useState } from "react";
 
 interface RepoCardProps {
   repo: Repo;
@@ -17,7 +17,7 @@ interface RepoCardProps {
  * Expandable Repo Card
  */
 export default function RepoCard({ repo, color }: RepoCardProps) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded((e) => !e);
