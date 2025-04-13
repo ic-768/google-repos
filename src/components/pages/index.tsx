@@ -5,10 +5,11 @@ import SearchBar from "../../components/ui/SearchBar";
 import { useRepoSearch } from "../../hooks/useRepoSearch";
 import PopularRepoList from "../../components/repositories/RepoList/PopularRepoList";
 import RepoList from "../../components/repositories/RepoList";
-import { Repo } from "../../types/repo";
 
 export default function IndexPage() {
+  // TODO show an error message
   const { data: repositories = [], isFetching, error } = useFetchRepos();
+
   const {
     searchTerm,
     debouncedSearchTerm,
@@ -35,49 +36,32 @@ export default function IndexPage() {
         <CircularProgress />
       ) : (
         <>
-          <PopularReposSection repos={sortedPopularRepos} />
-          <OtherReposSection repos={sortedUnpopularRepos} />
-          <NoResultsMessage
-            searchTerm={debouncedSearchTerm}
-            show={showNoResults}
-          />
+          {sortedPopularRepos && (
+            <>
+              <Typography variant="h5">Popular Repositories</Typography>
+              <PopularRepoList repos={sortedPopularRepos} />
+            </>
+          )}
+
+          {sortedUnpopularRepos.length && (
+            <>
+              <Typography variant="h5">Other Repositories</Typography>
+              <PaginatedContent
+                items={sortedUnpopularRepos}
+                renderItems={(paginatedItems) => (
+                  <RepoList repos={paginatedItems} />
+                )}
+              />
+            </>
+          )}
+
+          {showNoResults && (
+            <Typography>
+              No repositories found matching "{searchTerm}"
+            </Typography>
+          )}
         </>
       )}
     </div>
   );
 }
-
-const PopularReposSection = ({ repos }: { repos: Repo[] }) => {
-  if (repos.length === 0) return null;
-
-  return (
-    <>
-      <Typography variant="h5">Popular Repositories</Typography>
-      <PopularRepoList repos={repos} />
-    </>
-  );
-};
-
-const OtherReposSection = ({ repos }: { repos: Repo[] }) => {
-  if (repos.length === 0) return null;
-
-  return (
-    <>
-      <Typography variant="h5">Other Repositories</Typography>
-      <PaginatedContent
-        items={repos}
-        renderItems={(paginatedItems) => <RepoList repos={paginatedItems} />}
-      />
-    </>
-  );
-};
-
-interface NoResultsMessageProps {
-  searchTerm: string;
-  show: boolean;
-}
-const NoResultsMessage = ({ searchTerm, show }: NoResultsMessageProps) => {
-  if (!show) return null;
-
-  return <Typography>No repositories found matching "{searchTerm}"</Typography>;
-};
