@@ -1,7 +1,7 @@
 import { Typography, CircularProgress } from "@mui/material";
 
 import useFetchRepos from "../hooks/useFetchRepos";
-import { categorizeRepos } from "../lib/functions";
+import { categorizeRepos, sortRepos } from "../lib/functions";
 import RepoList from "../components/RepoList";
 import PopularRepoList from "../components/RepoList/PopularRepoList";
 import { Repo } from "../types/repo";
@@ -13,13 +13,16 @@ export default function IndexPage() {
 
   const { unpopularRepos, popularRepos } = categorizeRepos(repositories);
 
+  const sortedPopularRepos = sortRepos(popularRepos, "stars");
+  const sortedUnpopularRepos = sortRepos(unpopularRepos, "alphabetic");
+
   const pageContent = isFetching ? (
     <CircularProgress />
   ) : (
     <>
-      <PopularRepoList repos={popularRepos} />
+      <PopularRepoList repos={sortedPopularRepos} />
       <PaginatedContent
-        items={unpopularRepos}
+        items={sortedUnpopularRepos}
         renderItems={(paginatedItems: Repo[]) => (
           <RepoList repos={paginatedItems} />
         )}

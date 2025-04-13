@@ -18,3 +18,18 @@ export function categorizeRepos(repositories: Repo[]) {
 
   return { unpopularRepos, popularRepos };
 }
+
+/**
+ * Sort repositories either alphabetically or by stars.
+ * Default: alphabetically
+ * @param repos Repos to sort
+ * @param mode Sort mode
+ */
+export function sortRepos(
+  repos: Repo[],
+  mode: "alphabetic" | "stars" = "alphabetic",
+) {
+  return mode === "alphabetic"
+    ? repos.sort()
+    : repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
+}
