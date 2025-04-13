@@ -1,5 +1,6 @@
 import { Repo } from "../types/repo";
 import { RepoSortingOptions } from "../types/sorting";
+import { repoPopularityThreshold } from "./constants";
 
 /**
  * Categorize repositories into popular and unpopular.
@@ -7,7 +8,7 @@ import { RepoSortingOptions } from "../types/sorting";
 export function categorizeRepos(repositories: Repo[]) {
   const [unpopularRepos, popularRepos] = repositories.reduce<Repo[][]>(
     ([unpopular, popular], repo) => {
-      if (repo.stargazers_count > 1000) {
+      if (repo.stargazers_count > repoPopularityThreshold) {
         popular.push(repo);
       } else {
         unpopular.push(repo);

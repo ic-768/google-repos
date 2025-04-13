@@ -22,6 +22,9 @@ export default function IndexPage() {
   const showNoResults =
     filteredRepos.length === 0 && debouncedSearchTerm !== "";
 
+  const hasPopularRepos = sortedPopularRepos.length > 0;
+  const hasUnpopularRepos = sortedUnpopularRepos.length > 0;
+
   return (
     <div className="p-6 flex flex-col gap-8 items-center w-full max-w-7xl">
       <Typography variant="h4">GitHub Repositories</Typography>
@@ -36,14 +39,14 @@ export default function IndexPage() {
         <CircularProgress />
       ) : (
         <>
-          {sortedPopularRepos && (
+          {hasPopularRepos && (
             <>
               <Typography variant="h5">Popular Repositories</Typography>
               <PopularRepoList repos={sortedPopularRepos} />
             </>
           )}
 
-          {sortedUnpopularRepos.length && (
+          {hasUnpopularRepos && (
             <>
               <Typography variant="h5">Other Repositories</Typography>
               <PaginatedContent

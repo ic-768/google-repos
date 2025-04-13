@@ -27,7 +27,7 @@ export default function RepoCard({ repo, color }: RepoCardProps) {
     <div className="relative h-full">
       <Card className="h-full">
         <CardContent>
-          <div className="flex justify-between items-center gap-2">
+          <div className="flex justify-between items-start gap-2">
             <Typography variant="h6">{repo.name}</Typography>
             <Chip
               icon={<Star />}
