@@ -25,7 +25,7 @@ export const useRepoSearch = (repositories: Repo[]) => {
   const { unpopularRepos, popularRepos } = categorizeRepos(filteredRepos);
 
   const sortedPopularRepos = sortRepos(popularRepos, "stars");
-  const sortedUnpopularRepos = sortRepos(unpopularRepos, "alphabetic");
+  const sortedUnpopularRepos = sortRepos(unpopularRepos);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);

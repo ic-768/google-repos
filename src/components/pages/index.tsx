@@ -27,8 +27,7 @@ export default function IndexPage() {
     handleSearchChange,
   } = useRepoSearch(repositories);
 
-  const showNoResults =
-    filteredRepos.length === 0 && debouncedSearchTerm !== "";
+  const noResults = filteredRepos.length === 0 && debouncedSearchTerm !== "";
 
   const hasPopularRepos = sortedPopularRepos.length > 0;
   const hasUnpopularRepos = sortedUnpopularRepos.length > 0;
@@ -66,7 +65,7 @@ export default function IndexPage() {
             </>
           )}
 
-          {showNoResults && (
+          {noResults && (
             <Typography>
               No repositories found matching &quot;{searchTerm}&quot;
             </Typography>
