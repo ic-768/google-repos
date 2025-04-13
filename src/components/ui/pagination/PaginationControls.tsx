@@ -35,7 +35,7 @@ export default function PaginationControls({
   const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, totalNumItems)} of ${totalNumItems} items`;
 
   return (
-    <div className="flex items-center justify-center flex-col sm:flex-row gap-4">
+    <div className="flex items-center justify-center flex-col sm:flex-row gap-4 sm:items-start">
       <div className="flex flex-col items-center gap-4">
         <Pagination
           count={totalPageNum}

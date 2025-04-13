@@ -49,7 +49,7 @@ export default function RepoCard({ repo, color }: RepoCardProps) {
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
-              aria-label="show more"
+              aria-label="expand"
               className="!absolute right-0 bottom-4"
             >
               <ExpandMoreIcon />

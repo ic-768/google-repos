@@ -2,6 +2,8 @@ import { useState } from "react";
 import RepoList from ".";
 import { Repo } from "../../../types/repo";
 
+const NUM_INITIAL_VISIBLE_REPOS = 5;
+
 export default function PopularRepoList({ repos }: { repos: Repo[] }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -9,16 +11,17 @@ export default function PopularRepoList({ repos }: { repos: Repo[] }) {
     setIsExpanded((prev) => !prev);
   };
 
-  const initialVisible = 5;
-  const numVisibleRepos = isExpanded ? repos.length : initialVisible;
+  const numVisibleRepos = isExpanded ? repos.length : NUM_INITIAL_VISIBLE_REPOS;
   const buttonText = isExpanded ? "Show Less" : "Show More";
 
   return (
     <div className="w-full">
       <RepoList repos={repos.slice(0, numVisibleRepos)} color="primary" />
-      <button onClick={handleToggleShowMore} className="mt-4 text-blue-500">
-        {buttonText}
-      </button>
+      {repos.length > 5 && (
+        <button onClick={handleToggleShowMore} className="mt-4 text-blue-500">
+          {buttonText}
+        </button>
+      )}
     </div>
   );
 }
