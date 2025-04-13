@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 import { CircularProgress, Typography } from "@mui/material";
 
 import useFetchRepos from "../../hooks/useFetchRepos";
@@ -8,8 +10,13 @@ import PaginatedContent from "../ui/pagination/PaginatedContent";
 import SearchBar from "../ui/SearchBar";
 
 export default function IndexPage() {
-  // TODO show an error message
   const { data: repositories = [], isFetching, error } = useFetchRepos();
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong while fetching repositories.");
+    }
+  }, [error]);
 
   const {
     searchTerm,
