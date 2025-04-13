@@ -35,7 +35,7 @@ export default function PaginationControls({
   const paginationText = `Showing ${firstDisplayedItem + 1}-${Math.min(lastDisplayedItem, totalNumItems)} of ${totalNumItems} items`;
 
   return (
-    <div className="flex">
+    <div className="flex justify-center">
       <div className="flex flex-col items-center gap-4">
         <Pagination
           count={totalPageNum}
@@ -45,18 +45,10 @@ export default function PaginationControls({
           showFirstButton
           showLastButton
         />
-        <Typography color="textSecondary" align="center">
-          {paginationText}
-        </Typography>
+        <Typography color="textSecondary">{paginationText}</Typography>
       </div>
       <FormControl>
-        <Select
-          labelId="page-size-label"
-          value={pageSize}
-          onChange={handlePageSizeChange}
-          variant="outlined"
-          size="small"
-        >
+        <Select value={pageSize} onChange={handlePageSizeChange} size="small">
           <MenuItem value={8}>8</MenuItem>
           <MenuItem value={16}>16</MenuItem>
         </Select>

@@ -1,32 +1,23 @@
-import { ChangeEvent, useState } from "react";
 import { Typography, CircularProgress } from "@mui/material";
 import useFetchRepos from "../hooks/useFetchRepos";
-import { categorizeRepos, sortRepos } from "../lib/functions";
 import RepoList from "../components/RepoList";
 import PopularRepoList from "../components/RepoList/PopularRepoList";
 import { Repo } from "../types/repo";
 import PaginatedContent from "../components/ui/pagination/PaginatedContent";
-import { useDebounce } from "../hooks/useDebounce";
 import SearchBar from "../components/ui/SearchBar";
+import { useRepoSearch } from "../hooks/useRepoSearch";
 
 export default function IndexPage() {
   const { data: repositories = [], isFetching, error } = useFetchRepos();
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
-
-  const filteredRepos = repositories.filter((repo) =>
-    repo.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
-  );
-
-  const { unpopularRepos, popularRepos } = categorizeRepos(filteredRepos);
-
-  const sortedPopularRepos = sortRepos(popularRepos, "stars");
-  const sortedUnpopularRepos = sortRepos(unpopularRepos, "alphabetic");
-
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
+  const {
+    searchTerm,
+    debouncedSearchTerm,
+    filteredRepos,
+    sortedPopularRepos,
+    sortedUnpopularRepos,
+    handleSearchChange,
+  } = useRepoSearch(repositories);
 
   const pageContent = isFetching ? (
     <CircularProgress />
@@ -34,18 +25,14 @@ export default function IndexPage() {
     <>
       {sortedPopularRepos.length > 0 && (
         <>
-          <Typography variant="h5" component="h2" gutterBottom>
-            Popular Repositories
-          </Typography>
+          <Typography variant="h5">Popular Repositories</Typography>
           <PopularRepoList repos={sortedPopularRepos} />
         </>
       )}
 
       {sortedUnpopularRepos.length > 0 && (
         <>
-          <Typography variant="h5" component="h2" gutterBottom>
-            Other Repositories
-          </Typography>
+          <Typography variant="h5">Other Repositories</Typography>
           <PaginatedContent
             items={sortedUnpopularRepos}
             renderItems={(paginatedItems: Repo[]) => (
@@ -56,7 +43,7 @@ export default function IndexPage() {
       )}
 
       {filteredRepos.length === 0 && (
-        <Typography variant="body1">
+        <Typography>
           No repositories found matching "{debouncedSearchTerm}"
         </Typography>
       )}
@@ -64,10 +51,8 @@ export default function IndexPage() {
   );
 
   return (
-    <div className="p-6 flex flex-col gap-8 items-center w-full max-w-6xl mx-auto">
-      <Typography variant="h4" component="h1" gutterBottom align="center">
-        GitHub Repositories
-      </Typography>
+    <div className="p-6 flex flex-col gap-8 items-center w-full max-w-7xl">
+      <Typography variant="h4">GitHub Repositories</Typography>
       <SearchBar
         value={searchTerm}
         onChange={handleSearchChange}

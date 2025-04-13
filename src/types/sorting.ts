@@ -1,1 +1,1 @@
-export type SortingOptions = "stars" | "alphabetic";
+export type RepoSortingOptions = "stars" | "alphabetic";

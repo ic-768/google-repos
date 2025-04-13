@@ -1,5 +1,5 @@
 import { Repo } from "../types/repo";
-import { SortingOptions } from "../types/sorting";
+import { RepoSortingOptions } from "../types/sorting";
 
 /**
  * Categorize repositories into popular and unpopular.
@@ -26,7 +26,10 @@ export function categorizeRepos(repositories: Repo[]) {
  * @param repos Repos to sort
  * @param mode Sort mode
  */
-export function sortRepos(repos: Repo[], mode: SortingOptions = "alphabetic") {
+export function sortRepos(
+  repos: Repo[],
+  mode: RepoSortingOptions = "alphabetic",
+) {
   return mode === "alphabetic"
     ? repos.sort()
     : repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
