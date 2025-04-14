@@ -1,18 +1,16 @@
 import { ToastContainer } from "react-toastify";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import IndexPage from "./components/pages";
+import { FetchedReposProvider } from "./providers/fetched-repos/FetchedReposProvider";
 
 import "../index.css";
 
 function App() {
-  const queryClient = new QueryClient();
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <FetchedReposProvider>
       <ToastContainer />
       <IndexPage />
-    </QueryClientProvider>
+    </FetchedReposProvider>
   );
 }
 

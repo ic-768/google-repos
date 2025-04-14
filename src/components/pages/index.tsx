@@ -2,15 +2,15 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { CircularProgress, Typography } from "@mui/material";
 
-import useFetchRepos from "../../hooks/useFetchRepos";
 import { useRepoSearch } from "../../hooks/useRepoSearch";
+import { useFetchedRepos } from "../../providers/fetched-repos/useFetchedRepos";
 import RepoList from "../repositories/RepoList";
 import PopularRepoList from "../repositories/RepoList/PopularRepoList";
 import PaginatedContent from "../ui/pagination/PaginatedContent";
 import SearchBar from "../ui/SearchBar";
 
 export default function IndexPage() {
-  const { data: repositories = [], isFetching, error } = useFetchRepos();
+  const { repos, error, isFetching } = useFetchedRepos();
 
   useEffect(() => {
     if (error) {
@@ -25,7 +25,7 @@ export default function IndexPage() {
     sortedPopularRepos,
     sortedUnpopularRepos,
     handleSearchChange,
-  } = useRepoSearch(repositories);
+  } = useRepoSearch(repos);
 
   const noResults = filteredRepos.length === 0 && debouncedSearchTerm !== "";
 
