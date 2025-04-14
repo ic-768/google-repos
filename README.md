@@ -1,6 +1,6 @@
 # Google Repos
 
-A web application that fetches and displays information about Google's GitHub repositories using GitHub's public API. Per instruction, the UI is built with Material UI the layout and styling is done with Tailwind CSS.
+A web application that fetches and displays information about Google's GitHub repositories using GitHub's public API. Per instruction, the UI is built with Material UI, and the layout and styling is done with Tailwind CSS.
 
 Because I noticed that the paginated repos never exceeded more than 5 popular ones per page, I made the decision to show all the popular repos at the top, and paginate the unpopular ones underneath them so that the "Show more / Show less" can have a chance to be rendered.
 
