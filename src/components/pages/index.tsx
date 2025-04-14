@@ -33,7 +33,7 @@ export default function IndexPage() {
   const hasUnpopularRepos = sortedUnpopularRepos.length > 0;
 
   return (
-    <div className="flex w-full max-w-7xl flex-col items-center gap-8 p-6">
+    <main className="flex w-full max-w-7xl flex-col items-center gap-8 p-6">
       <Typography variant="h4">GitHub Repositories</Typography>
 
       <SearchBar
@@ -72,6 +72,6 @@ export default function IndexPage() {
           )}
         </>
       )}
-    </div>
+    </main>
   );
 }
