@@ -1,4 +1,5 @@
 import { ToastContainer } from "react-toastify";
+import { CssBaseline } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import IndexPage from "./components/pages";
@@ -10,6 +11,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <CssBaseline />
       <ToastContainer />
       <IndexPage />
     </QueryClientProvider>

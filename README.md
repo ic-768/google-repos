@@ -1,54 +1,58 @@
-# React + TypeScript + Vite
+# Google Repos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web application that fetches and displays information about Google's GitHub repositories using GitHub's public API. Per instruction, the UI is built with Material UI the layout and styling is done with Tailwind CSS.
 
-Currently, two official plugins are available:
+Because I noticed that the paginated repos never exceeded more than 5 popular ones per page, I made the decision to show all the popular repos at the top, and paginate the unpopular ones underneath them so that the "Show more / Show less" can have a chance to be rendered.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Directory Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+/
+├── api/           # API endpoint fetching functions
+├── components/
+│   ├── pages/     # Full page view components
+│   ├── ui/        # Reusable UI components
+│   └── */         # Feature-specific components
+├── hooks/
+├── lib/           # Utility functions and constants
+└── types/         # TypeScript type definitions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Technical & Design Decisions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The main branch uses React Query for data fetching and storing, however, you'll find a separate branch that uses Context API + useEffect, because the initial guidelines didn't mention React Query as an option. That being said, I would never use Context + useEffect for state management in a production app.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### Core Structure
+
+- **App.tsx** serves as the application entry point, rendering the main page and all necessary providers. In an application with multiple pages, this would be where routing logic would reside.
+
+- The **index page** fetches and caches the repo data, while rendering the repository listings and search/pagination controls. All business logic is extracted into custom hooks for readability and separation of concerns.
+
+### Component Design
+
+Components are designed with reusability as a primary goal:
+
+- The **PaginatedContent** component utilizes the render props pattern and a `usePageNavigation` hook. This approach allows us to dictate how to render the content, and ensures the component isn't tightly coupled to any specific UI implementation.
+
+- Repository management (filtering, categorizing, and sorting) is handled by the `useRepoSearch` hook, which implements a data processing pipeline:
+  1. Filtering repositories based on search criteria
+  2. Categorizing results into popular and unpopular repositories
+  3. Applying appropriate sorting rules to each category
+
+This modular approach allows for clean, testable code while maintaining flexibility for future enhancements.
+
+## Getting Started
+
+### Installation
+
+```bash
+npm install
 ```
+
+### Development
+
+```bash
+npm run dev
+```
+
+This will start the development server at `localhost:3000`.
