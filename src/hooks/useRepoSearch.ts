@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import { categorizeRepos, sortRepos } from "../lib/functions";
 import { Repo } from "../types/repo";
+import { RepoSortingOptions } from "../types/sorting";
 
 /**
  * A hook that manages categorizing / searching / sorting for repositories.
@@ -17,15 +18,15 @@ import { Repo } from "../types/repo";
 export const useRepoSearch = (repositories: Repo[]) => {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const [sorting, setSorting] = useState<RepoSortingOptions>("stars");
 
   const filteredRepos = repositories.filter((repo) =>
     repo.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
   );
 
   const { unpopularRepos, popularRepos } = categorizeRepos(filteredRepos);
-
-  const sortedPopularRepos = sortRepos(popularRepos, "stars");
-  const sortedUnpopularRepos = sortRepos(unpopularRepos);
+  const sortedPopularRepos = sortRepos(popularRepos, sorting);
+  const sortedUnpopularRepos = sortRepos(unpopularRepos, sorting);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -38,5 +39,7 @@ export const useRepoSearch = (repositories: Repo[]) => {
     sortedPopularRepos,
     sortedUnpopularRepos,
     handleSearchChange,
+    sorting,
+    setSorting,
   };
 };

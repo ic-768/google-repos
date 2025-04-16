@@ -8,6 +8,7 @@ import RepoList from "../repositories/RepoList";
 import PopularRepoList from "../repositories/RepoList/PopularRepoList";
 import PaginatedContent from "../ui/pagination/PaginatedContent";
 import SearchBar from "../ui/SearchBar";
+import ToggleOptions from "../ui/ToggleOptions";
 
 export default function IndexPage() {
   const { data: repositories = [], isFetching, error } = useFetchRepos();
@@ -25,6 +26,8 @@ export default function IndexPage() {
     sortedPopularRepos,
     sortedUnpopularRepos,
     handleSearchChange,
+    sorting,
+    setSorting,
   } = useRepoSearch(repositories);
 
   const noResults = filteredRepos.length === 0 && debouncedSearchTerm !== "";
@@ -46,6 +49,15 @@ export default function IndexPage() {
         <CircularProgress />
       ) : (
         <>
+          <ToggleOptions
+            value={sorting}
+            setValue={setSorting}
+            options={[
+              { label: "stars", value: "stars" },
+              { label: "alphabetic", value: "alphabetic" },
+            ]}
+          />
+
           {hasPopularRepos && (
             <>
               <Typography variant="h5">Popular Repositories</Typography>
