@@ -18,7 +18,7 @@ export default function PopularRepoList({ repos }: { repos: Repo[] }) {
   return (
     <div className="w-full">
       <RepoList repos={repos.slice(0, numVisibleRepos)} color="primary" />
-      {repos.length > 5 && (
+      {repos.length > NUM_INITIAL_VISIBLE_REPOS && (
         <button onClick={handleToggleShowMore} className="mt-4 text-blue-500">
           {buttonText}
         </button>
